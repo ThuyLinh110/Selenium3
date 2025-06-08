@@ -1,0 +1,11 @@
+{
+  "browser": "chrome",
+  "browserCapabilities": {
+    "caps": {
+    }
+  },
+  "startMaximized": true,
+  "timeout": 60000,
+  "pollingInterval": 200,
+  "pageLoadTimeout": 180000
+}
