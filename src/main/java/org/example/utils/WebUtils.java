@@ -1,8 +1,24 @@
 package org.example.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.example.driver.DriverUtils;
 
+@Slf4j
 public class WebUtils {
-    private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
+
+    /**
+     * Switch to page with page number
+     */
+    public static void switchToPage(int page) {
+        DriverUtils.getCurrentDriver().switchTo().window(page);
+        switchToMain();
+    }
+
+    /**
+     * Switch to main
+     */
+    public static void switchToMain() {
+        DriverUtils.getCurrentDriver().switchTo().defaultContent();
+    }
+
 }

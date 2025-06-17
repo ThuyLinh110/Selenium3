@@ -1,0 +1,9 @@
+en:
+  button:
+    close: "Close"
+    search: "SEARCH"
+
+vi:
+  button:
+    close: "Đóng"
+    search: "TÌM"
