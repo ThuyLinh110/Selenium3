@@ -1,8 +1,11 @@
 package org.example.page.agoda;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.example.data.agoda.SearchHotelData;
+import org.example.utils.YamlUtils;
 import org.openqa.selenium.By;
 
 import java.time.LocalDate;
@@ -38,22 +41,31 @@ public class HomePage {
                     selectNumberOfAdults(searchHotelData.getOccupancy().getAdults());
                 }
                 if (Objects.nonNull(searchHotelData.getOccupancy().getChildren())) {
-                    selectNumberOfAdults(searchHotelData.getOccupancy().getChildren());
+                    selectNumberOfChildren(searchHotelData.getOccupancy().getChildren());
                 }
             }
         }
     }
 
-    public void searchAndGetTheFirstPlace(String place) {
-        placeTextBox.setValue(place);
-        firstPlaceResult.click();
+    public void searchHotel(SearchHotelData searchHotelData) {
+        fillHotelInfo(searchHotelData);
+        clickSearchButton();
+        Selenide.switchTo().window(1);
     }
 
+    @Step("Search place: {place}")
+    public void searchAndGetTheFirstPlace(String place) {
+        placeTextBox.setValue(place);
+        firstPlaceResult.shouldBe(Condition.visible).shouldBe(Condition.enabled).click();
+    }
+
+    @Step("Select date: {date}")
     public void selectDate(LocalDate date) {
         String dateStr = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         getSelectDate(dateStr).click();
     }
 
+    @Step("Select number of rooms: {targetNumber}")
     public void selectNumberOfRooms(int targetNumber) {
         int currentNumber = Integer.parseInt(roomValue.getText());
         SelenideElement buttonToClick = currentNumber < targetNumber ? plusRoomButton : minusRoomButton;
@@ -62,6 +74,7 @@ public class HomePage {
         }
     }
 
+    @Step("Select number of adults: {targetNumber}")
     public void selectNumberOfAdults(int targetNumber) {
         int currentNumber = Integer.parseInt(adultsValue.getText());
         SelenideElement buttonToClick = currentNumber < targetNumber ? plusAdultsButton : minusAdultsButton;
@@ -70,6 +83,7 @@ public class HomePage {
         }
     }
 
+    @Step("Select number of children: {targetNumber}")
     public void selectNumberOfChildren(int targetNumber) {
         int currentNumber = Integer.parseInt(childrenValue.getText());
         SelenideElement buttonToClick = currentNumber < targetNumber ? plusChildrenButton : minusChildrenButton;
@@ -78,8 +92,25 @@ public class HomePage {
         }
     }
 
+    @Step("Close the advertisement popup")
+    public void closeAds() {
+        adsCloseButton.shouldBe(Condition.visible).shouldBe(Condition.enabled).click();
+    }
+
+    @Step("Click Search button")
+    public void clickSearchButton() {
+        getButton((String) YamlUtils.getProperty("button.search")).click();
+    }
+
+
     private SelenideElement getSelectDate(String dateStr) {
         return $x(String.format("//span[@data-selenium-date='%s']", dateStr))
+                .shouldBe(Condition.visible)
+                .shouldBe(Condition.enabled);
+    }
+
+    private SelenideElement getButton(String text) {
+        return $x(String.format("//span[.='%s']", text))
                 .shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
     }
@@ -95,4 +126,6 @@ public class HomePage {
     private SelenideElement plusChildrenButton = $x("//button[@data-element-name='occupancy-selector-panel-children' and @data-selenium='plus']");
     private SelenideElement minusChildrenButton = $x("//button[@data-element-name='occupancy-selector-panel-children' and @data-selenium='minus']");
     private SelenideElement childrenValue = $x("//div[@data-component='desktop-occ-children-value']//p");
+    private SelenideElement adsCloseButton = $x("//button[@data-element-name='prominent-app-download-floating-button']");
+
 }

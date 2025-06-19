@@ -9,9 +9,8 @@ import java.util.Properties;
 @Slf4j
 public class PropertiesUtils {
 
-    public static void loadProperties() {
+    public static void loadProperties(String propPath) {
         try {
-            String propPath = SharedParameter.ENV.equals("dev") ? Constants.DEV_PROFILE_FILE_PATH : Constants.QA_PROFILE_FILE_PATH;
             prop = new Properties();
             prop.load(new FileReader(propPath));
         } catch (IOException e) {
