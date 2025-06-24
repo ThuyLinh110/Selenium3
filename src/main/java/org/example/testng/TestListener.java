@@ -3,16 +3,16 @@ package org.example.testng;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import lombok.extern.slf4j.Slf4j;
+import org.example.report.AllureReport;
+import org.example.utils.SharedParameter;
 import org.openqa.selenium.OutputType;
-import org.testng.IAnnotationTransformer;
-import org.testng.IExecutionListener;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import org.testng.*;
 import org.testng.annotations.ITestAnnotation;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 @Slf4j
 public class TestListener implements ITestListener, IExecutionListener, IAnnotationTransformer {
@@ -45,6 +45,13 @@ public class TestListener implements ITestListener, IExecutionListener, IAnnotat
     @Override
     public void onTestFailure(ITestResult result) {
         attachScreenshot("Screenshot on test failure");
+    }
+
+    @Override
+    public void onStart(ITestContext context) {
+        SharedParameter.RETRY_MODE = Objects.requireNonNullElse(context.getCurrentXmlTest().getParameter("retryMode"), "immediately");
+        SharedParameter.RETRY_COUNT = Integer.parseInt(context.getCurrentXmlTest().getParameter("retryCount"));
+        AllureReport.setupAllure();
     }
 
     private void attachScreenshot(String attachmentName) {

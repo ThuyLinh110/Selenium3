@@ -12,7 +12,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
 
     @Override
     public boolean retry(ITestResult result) {
-        if (retryCount < SharedParameter.RETRY_COUNT) {
+        if (retryCount < SharedParameter.RETRY_COUNT && SharedParameter.RETRY_MODE.equalsIgnoreCase("immediately")) {
             retryCount++;
             log.warn("Test {} failed. Retrying {}/{}",
                     result.getName(), retryCount, SharedParameter.RETRY_COUNT);
