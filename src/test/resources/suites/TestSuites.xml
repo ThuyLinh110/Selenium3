@@ -8,9 +8,11 @@
     <test name="Agoda">
         <parameter name="browser" value="chrome"/>
         <parameter name="language" value="en"/>
-        <parameter name="retryCount" value="1"/>
+        <parameter name="retryMode" value="immediately"/>
+        <parameter name="retryCount" value="0"/>
         <classes>
             <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>
+            <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>
         </classes>
     </test>
 
