@@ -1,6 +1,7 @@
 package org.example.page.agoda;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -9,11 +10,9 @@ import org.example.utils.YamlUtils;
 import org.openqa.selenium.By;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class HomePage {
 
@@ -61,8 +60,15 @@ public class HomePage {
 
     @Step("Select date: {date}")
     public void selectDate(LocalDate date) {
-        String dateStr = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        getSelectDate(dateStr).click();
+        LocalDate minimumDate = LocalDate.parse(calendarDate.first().getAttribute("data-selenium-date"));
+        LocalDate maximumDate = LocalDate.parse(calendarDate.last().getAttribute("data-selenium-date"));
+        if (date.isBefore(minimumDate)) {
+            previousMonthButton.click();
+        }
+        if (date.isAfter(maximumDate)) {
+            nextMonthButton.click();
+        }
+        getSelectDate(date).click();
     }
 
     @Step("Select number of rooms: {targetNumber}")
@@ -103,8 +109,8 @@ public class HomePage {
     }
 
 
-    private SelenideElement getSelectDate(String dateStr) {
-        return $x(String.format("//span[@data-selenium-date='%s']", dateStr))
+    private SelenideElement getSelectDate(LocalDate date) {
+        return $x(String.format("//span[@data-selenium-date='%s']", date.toString()))
                 .shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
     }
@@ -127,5 +133,8 @@ public class HomePage {
     private SelenideElement minusChildrenButton = $x("//button[@data-element-name='occupancy-selector-panel-children' and @data-selenium='minus']");
     private SelenideElement childrenValue = $x("//div[@data-component='desktop-occ-children-value']//p");
     private SelenideElement adsCloseButton = $x("//button[@data-element-name='prominent-app-download-floating-button']");
+    private ElementsCollection calendarDate = $$(By.cssSelector("[data-selenium-date]"));
+    private SelenideElement previousMonthButton = $x("//button[@aria-label='Previous Month']");
+    private SelenideElement nextMonthButton = $x("//button[@aria-label='Next Month']");
 
 }
