@@ -9,8 +9,8 @@ import org.example.utils.YamlUtils;
 public enum FilterOption {
 
     RATING_THREE_STAR("3_stars", 3),
-    RATING_FOUR_STAR("4_stars", 4);
-
+    RATING_FOUR_STAR("4_stars", 4),
+    NON_SMOKING("non_smoking", 15);
     private final String code;
     private final int value;
 

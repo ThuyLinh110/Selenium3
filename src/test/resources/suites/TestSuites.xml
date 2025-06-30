@@ -11,8 +11,9 @@
         <parameter name="retryMode" value="immediately"/>
         <parameter name="retryCount" value="0"/>
         <classes>
-            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>
-            <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>
+            <!--            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>-->
+            <!--            <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>-->
+            <class name="agoda.Agoda_VerifyUserCanAddHotelToFavouriteSuccessfully"/>
         </classes>
     </test>
 

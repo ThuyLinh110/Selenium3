@@ -45,7 +45,7 @@ public class Agoda_VerifyUserCanSearchAndSortHotelSuccessfully extends TestBase 
 
         searchResultPage.clickLowestPriceFirstButton();
         searchResultPage.scrollUntilAllHotelDataLoaded(5);
-        priceList = searchResultPage.getPriceList(5);
+        priceList = searchResultPage.getNonNullPriceList(5);
         Assertion.assertEquals(priceList, Common.sort(priceList), "VP: Check the 5 first hotel prices are sorted in ascending");
         Assertion.assertTrue(searchResultPage.areAllTheDestinationsHaveSearchContent(5, place), "VP: Check all the hotel destination are still correct");
 

@@ -5,9 +5,11 @@ filter:
   popular_filter: "Bộ lọc phổ biến"
   property_type: "Loại hình nơi ở"
   star_rating: "Xếp hạng sao"
+  property_facilities: "Tiện nghi chỗ nghỉ"
 checkbox:
   4_stars: "4-Đánh giá sao"
   3_stars: "3-Đánh giá sao"
+  non_smoking: "Không hút thuốc"
 slider:
   min: "TỐI THIỂU"
   max: "TỐI ĐA"

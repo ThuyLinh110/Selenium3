@@ -1,8 +1,6 @@
 package org.example.page.agoda;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.qameta.allure.model.Status;
@@ -29,31 +27,36 @@ public class SearchResultPage {
     @Step("Scroll until {numberHotel} hotels loaded data")
     public void scrollUntilAllHotelDataLoaded(int numberHotel) {
         while (true) {
-            if (price.size() >= numberHotel) {
+            if (nonNullPrice.size() >= numberHotel) {
                 break;
             }
             waitForHotelImgLoading();
-            price.last().shouldBe(Condition.visible, Constants.MEDIUM_TIMEOUT).scrollIntoView(true);
+            if (nonNullPrice.isEmpty()) {
+                hotelImg.last().shouldBe(Condition.visible, Constants.MEDIUM_TIMEOUT).scrollIntoView(true);
+            } else {
+                nonNullPrice.last().shouldBe(Condition.visible, Constants.MEDIUM_TIMEOUT).scrollIntoView(true);
+
+            }
         }
         header.scrollIntoView(true);
         waitForHotelImgLoading();
     }
 
     /**
-     * Get all the hotel prices
+     * Get all the hotel prices that are not null
      *
      * @param hotelNumber Number of hotel need to get
      * @return List of all prices
      */
-    public List<Integer> getPriceList(Integer hotelNumber) {
-        List<String> priceList = price.texts();
+    public List<Integer> getNonNullPriceList(Integer hotelNumber) {
+        List<String> priceList = nonNullPrice.texts();
         if (Objects.nonNull(hotelNumber)) {
             if (hotelNumber > priceList.size()) {
                 String errorMessage = String.format("Page only show %d instead of %d result(s). Scroll down for more results", priceList.size(), hotelNumber);
                 Allure.step(String.format(errorMessage), Status.FAILED);
                 throw new IllegalStateException(errorMessage);
             } else {
-                priceList = price.texts().subList(0, hotelNumber);
+                priceList = nonNullPrice.texts().subList(0, hotelNumber);
             }
         }
         return priceList.stream()
@@ -79,11 +82,12 @@ public class SearchResultPage {
                 destinationList = destination.texts().subList(0, hotelNumber);
             }
         }
-        return destinationList;
+        return destinationList.stream()
+                .map(e -> e.split("-")[0].trim())
+                .collect(Collectors.toList());
     }
 
     /**
-     * Add commentMore actions
      * Get all rating
      *
      * @param hotelNumber Number of hotel need to get
@@ -103,6 +107,26 @@ public class SearchResultPage {
         return ratingList.stream()
                 .map(text -> Float.parseFloat(text.split(" ")[0]))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all hotel name
+     *
+     * @param hotelNumber Number of hotel need to get
+     * @return List of all rating
+     */
+    public List<String> getHotelNameList(Integer hotelNumber) {
+        List<String> hotelNameList = hotelName.texts();
+        if (Objects.nonNull(hotelNameList)) {
+            if (hotelNumber > hotelNameList.size()) {
+                String errorMessage = String.format("Page only show %d instead of %d result(s). Scroll down for more results", hotelNameList.size(), hotelNumber);
+                Allure.step(String.format(errorMessage), Status.FAILED);
+                throw new IllegalStateException(errorMessage);
+            } else {
+                hotelNameList = hotelName.texts().subList(0, hotelNumber);
+            }
+        }
+        return hotelNameList;
     }
 
     /**
@@ -138,7 +162,7 @@ public class SearchResultPage {
      * @return
      */
     public boolean areAllPriceInSelectedRange(Integer hotelNumber, int min, int max) {
-        List<Integer> priceList = getPriceList(hotelNumber);
+        List<Integer> priceList = getNonNullPriceList(hotelNumber);
         if (Objects.isNull(priceList)) {
             Allure.step("No result found", Status.FAILED);
             return false;
@@ -186,16 +210,24 @@ public class SearchResultPage {
      * @param filterHotelData
      */
     public void filterHotel(FilterHotelData filterHotelData) {
-        filterByPriceRange(filterHotelData.getMinPrice(), filterHotelData.getMaxPrice(), false);
-        for (FilterHotelData.Filter filter : filterHotelData.getFilter()) {
-            filterByOption(filter.getFilterType(), filter.getFilterOption(), true);
+        if (Objects.nonNull(filterHotelData.getMinPrice()) || Objects.nonNull(filterHotelData.getMaxPrice())) {
+            filterByPriceRange(filterHotelData.getMinPrice(), filterHotelData.getMaxPrice(), false);
+        }
+        if (Objects.nonNull(filterHotelData.getFilter())) {
+            for (FilterHotelData.Filter filter : filterHotelData.getFilter()) {
+                filterByOption(filter.getFilterType(), filter.getFilterOption(), true);
+            }
         }
     }
 
     @Step("Filter by Price Range: {0} - {1}")
     public void filterByPriceRange(Integer minPrice, Integer maxPrice, boolean isWaitDataLoading) {
-        minPriceTextBox.setValue(minPrice.toString()).pressEnter();
-        maxPriceTextBox.setValue(maxPrice.toString()).pressEnter();
+        if (Objects.nonNull(minPrice)) {
+            minPriceTextBox.setValue(minPrice.toString()).pressEnter();
+        }
+        if (Objects.nonNull(maxPrice)) {
+            maxPriceTextBox.setValue(minPrice.toString()).pressEnter();
+        }
         if (isWaitDataLoading) {
             waitForHotelImgLoading();
         }
@@ -203,10 +235,16 @@ public class SearchResultPage {
 
     @Step("Filter by type: {0}, option: {1}")
     public void filterByOption(FilterType filterType, FilterOption filterOption, boolean isWaitDataLoading) {
-        getCheckboxByFilterTypeAndOption(filterType, filterOption).click();
+        getCheckboxByFilterTypeAndOption(filterType, filterOption).shouldBe(Condition.exist).scrollIntoView(true).click();
         if (isWaitDataLoading) {
             waitForHotelImgLoading();
         }
+    }
+
+    @Step("Click on hotel at index: {0}")
+    public void clickOnHotelByIndex(int index) {
+        hotelName.get(index - 1).shouldBe(Condition.visible).click();
+        Selenide.switchTo().window(WebDriverRunner.getWebDriver().getWindowHandles().size() - 1);
     }
 
     public void waitForHotelImgLoading() {
@@ -258,7 +296,8 @@ public class SearchResultPage {
     }
 
     private ElementsCollection destination = $$x("//li[@data-selenium='hotel-item']//div[@data-selenium='area-city']");
-    private ElementsCollection price = $$x("//div[@data-element-name='final-price']");
+    private ElementsCollection nonNullPrice = $$x("//div[@data-element-name='final-price']");
+    private ElementsCollection hotelName = $$x("//h3[@data-selenium='hotel-name']");
     private ElementsCollection hotelImg = $$x("//li[@data-selenium='hotel-item']//button[@data-element-name='ssrweb-mainphoto']/img");
     private SelenideElement lowestPriceButton = $x("//button[@data-element-name='search-sort-price']");
     private SelenideElement header = $("header");

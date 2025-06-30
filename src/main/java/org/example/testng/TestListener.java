@@ -23,21 +23,6 @@ public class TestListener implements ITestListener, IExecutionListener, IAnnotat
     }
 
     @Override
-    public void onTestStart(ITestResult result) {
-        String originalTestName = result.getMethod().getDescription();
-        int retryCount = getRetryCount(result);
-        if (retryCount >= 1) {
-            String uniqueTestName = originalTestName + "_Retry_" + retryCount;
-            String historyId = originalTestName + "_attempt_" + retryCount;
-
-            Allure.getLifecycle().updateTestCase(testResult -> {
-                testResult.setName(uniqueTestName);
-                testResult.setHistoryId(historyId);
-            });
-        }
-    }
-
-    @Override
     public void onTestSuccess(ITestResult result) {
         attachScreenshot("Screenshot on test success");
     }
