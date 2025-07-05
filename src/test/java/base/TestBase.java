@@ -1,5 +1,6 @@
 package base;
 
+import org.example.config.Config;
 import org.example.config.ConfigLoader;
 import org.example.driver.DriverUtils;
 import org.example.utils.Constants;
@@ -28,7 +29,13 @@ public class TestBase {
 
         PropertiesUtils.loadProperties(propPath);
         YamlUtils.loadYaml(yamlPath);
-        DriverUtils.initializeDriver(ConfigLoader.loadConfig(ConfigFiles.get(browser)));
+        Config config = ConfigLoader.loadConfig(ConfigFiles.get(browser));
+
+        if (Boolean.parseBoolean(PropertiesUtils.getProperty("grid"))) {
+            config.setRemote(PropertiesUtils.getProperty("hub"));
+        }
+
+        DriverUtils.initializeDriver(config);
 
     }
 

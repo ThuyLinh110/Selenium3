@@ -23,21 +23,6 @@ public class TestListener implements ITestListener, IExecutionListener, IAnnotat
     }
 
     @Override
-    public void onTestStart(ITestResult result) {
-        String originalTestName = result.getMethod().getDescription();
-        int retryCount = getRetryCount(result);
-        if (retryCount >= 1) {
-            String uniqueTestName = originalTestName + "_Retry_" + retryCount;
-            String historyId = originalTestName + "_attempt_" + retryCount;
-
-            Allure.getLifecycle().updateTestCase(testResult -> {
-                testResult.setName(uniqueTestName);
-                testResult.setHistoryId(historyId);
-            });
-        }
-    }
-
-    @Override
     public void onTestSuccess(ITestResult result) {
         attachScreenshot("Screenshot on test success");
     }
@@ -50,7 +35,8 @@ public class TestListener implements ITestListener, IExecutionListener, IAnnotat
     @Override
     public void onStart(ITestContext context) {
         SharedParameter.RETRY_MODE = Objects.requireNonNullElse(context.getCurrentXmlTest().getParameter("retryMode"), "immediately");
-        SharedParameter.RETRY_COUNT = Integer.parseInt(context.getCurrentXmlTest().getParameter("retryCount"));
+        String retryCount = context.getCurrentXmlTest().getParameter("retryCount");
+        SharedParameter.RETRY_COUNT = Objects.nonNull(retryCount) ? Integer.parseInt(retryCount) : 0;
         AllureReport.setupAllure();
     }
 

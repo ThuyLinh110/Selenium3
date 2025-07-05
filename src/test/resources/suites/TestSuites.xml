@@ -5,6 +5,12 @@
     <listeners>
         <listener class-name="org.example.testng.TestListener"/>
     </listeners>
+    <groups>
+        <run>
+            <include name="regression"/>
+        </run>
+    </groups>
+
     <test name="Agoda">
         <parameter name="browser" value="chrome"/>
         <parameter name="language" value="en"/>
@@ -13,6 +19,7 @@
         <classes>
             <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>
             <class name="agoda.Agoda_VerifyUserCanSearchAndFilterHotelSuccessfully"/>
+            <class name="agoda.Agoda_VerifyUserCanSearchFilterAndNavigateToHotelDetailsSuccessfully"/>
         </classes>
     </test>
 
