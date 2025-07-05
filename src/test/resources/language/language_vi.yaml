@@ -5,9 +5,18 @@ filter:
   popular_filter: "Bộ lọc phổ biến"
   property_type: "Loại hình nơi ở"
   star_rating: "Xếp hạng sao"
+  property_facilities: "Tiện nghi chỗ nghỉ"
 checkbox:
   4_stars: "4-Đánh giá sao"
   3_stars: "3-Đánh giá sao"
+  swimming_pool: "Bể bơi"
 slider:
   min: "TỐI THIỂU"
   max: "TỐI ĐA"
+review_type:
+  location: "Vị trí"
+  cleanliness: "Sạch sẽ"
+  service: "Dịch vụ"
+  facilities: "Cơ sở vật chất"
+  value_for_money: "Đáng giá tiền"
+  room_comfort_and_quantity: "Sự thoải mái và chất lượng phòng"

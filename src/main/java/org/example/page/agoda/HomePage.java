@@ -5,6 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.example.control.CalendarControl;
 import org.example.data.agoda.SearchHotelData;
 import org.example.utils.YamlUtils;
 import org.openqa.selenium.By;
@@ -60,15 +61,7 @@ public class HomePage {
 
     @Step("Select date: {date}")
     public void selectDate(LocalDate date) {
-        LocalDate minimumDate = LocalDate.parse(calendarDate.first().getAttribute("data-selenium-date"));
-        LocalDate maximumDate = LocalDate.parse(calendarDate.last().getAttribute("data-selenium-date"));
-        if (date.isBefore(minimumDate)) {
-            previousMonthButton.click();
-        }
-        if (date.isAfter(maximumDate)) {
-            nextMonthButton.click();
-        }
-        getSelectDate(date).click();
+        calendarControl.selectDate(date);
     }
 
     @Step("Select number of rooms: {targetNumber}")
@@ -108,13 +101,6 @@ public class HomePage {
         getButton((String) YamlUtils.getProperty("button.search")).click();
     }
 
-
-    private SelenideElement getSelectDate(LocalDate date) {
-        return $x(String.format("//span[@data-selenium-date='%s']", date.toString()))
-                .shouldBe(Condition.visible)
-                .shouldBe(Condition.enabled);
-    }
-
     private SelenideElement getButton(String text) {
         return $x(String.format("//span[.='%s']", text))
                 .shouldBe(Condition.visible)
@@ -136,5 +122,6 @@ public class HomePage {
     private ElementsCollection calendarDate = $$(By.cssSelector("[data-selenium-date]"));
     private SelenideElement previousMonthButton = $x("//button[@aria-label='Previous Month']");
     private SelenideElement nextMonthButton = $x("//button[@aria-label='Next Month']");
+    private CalendarControl calendarControl = new CalendarControl(previousMonthButton, nextMonthButton, calendarDate);
 
 }

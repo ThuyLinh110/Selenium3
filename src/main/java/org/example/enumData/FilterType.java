@@ -11,7 +11,8 @@ public enum FilterType {
     PROPERTY_TYPE("property_type"),
     STAR_RATING("star_rating"),
     NEIGHBORHOOD("neighborhood"),
-    ROOM_OFFERS("room_offers");
+    ROOM_OFFERS("room_offers"),
+    PROPERTY_FACILITIES("property_facilities");
 
     private final String code;
 
