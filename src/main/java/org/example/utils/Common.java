@@ -14,4 +14,10 @@ public class Common {
         return Integer.parseInt(numeric);
     }
 
+    public static List<String> lowerCaseList(List<String> stringList) {
+        return stringList.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -4,7 +4,7 @@
     "caps": {
     }
   },
-  "startMaximized": true,
+  "browserSize": "1920x1080",
   "timeout": 60000,
   "pollingInterval": 200,
   "pageLoadTimeout": 180000

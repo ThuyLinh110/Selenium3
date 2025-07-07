@@ -4,6 +4,8 @@ This is an example of using Selenide test framework.
 
 ## Task-progress
 
+### Output
+
 - [x] **Build selenide framework**
 - [ ] **Report**
     - [x] Allure Report
@@ -13,14 +15,26 @@ This is an example of using Selenide test framework.
     - [ ] Retry failed testcases after all testcase done
 - [x] Parallel execution
 - [x] Cross browser testing
-- [ ] Selenium Grid
+- [x] Selenium Grid
 - [ ] Implement testcase
     - [x] Agoda - TC1
     - [x] Agoda - TC2
-    - [ ] Agoda - TC3
+    - [x] Agoda - TC3
     - [ ] Vietjet - TC1
     - [ ] Vietjet - TC2
 - [x] CI - Schedule test and send the notification result email
+
+### Use case
+
+- [ ] Content testing
+- [x] Multiple languages testing
+- [x] Group tests by purposes: regression, smoke/sanity test
+- [x] Source control practice: branch => create PR
+- [x] Switch test environment: dev, stg (dev: agoda.com, stg: vj.com)
+- [x] Wrap custom controls
+- [ ] Data driven testing: test data is in excel file
+- [ ] Working with Shadow DOM
+- [ ] Compare with another FW e.g. Playwright
 
 ## Pre-requites
 
