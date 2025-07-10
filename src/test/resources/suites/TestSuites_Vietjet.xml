@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" name="Test" parallel="tests" thread-count="1">
+    <parameter name="environment" value="vietjet"/>
+    <listeners>
+        <listener class-name="org.example.testng.TestListener"/>
+    </listeners>
+    <groups>
+        <run>
+            <include name="regression"/>
+        </run>
+    </groups>
+
+    <test name="Vietjet">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="language" value="en"/>
+        <parameter name="retryMode" value="immediately"/>
+        <parameter name="retryCount" value="0"/>
+        <classes>
+            <class name="vietjet.Vietjet_VerifyUserCanSearchAndChooseTicketOnSpecialDay"/>
+        </classes>
+    </test>
+
+</suite>

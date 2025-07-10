@@ -1,7 +1,9 @@
 package org.example.utils;
 
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class Common {
@@ -20,4 +22,7 @@ public class Common {
                 .collect(Collectors.toList());
     }
 
+    public static String formatWithCommas(int number) {
+        return NumberFormat.getNumberInstance(Locale.US).format(number);
+    }
 }
