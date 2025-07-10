@@ -1,6 +1,14 @@
+config:
+  language: "en"
+  country: "US"
+  datetime_format: "dd/MM/yyyy"
+  day_month_format: "MMMM d"
+  month_year_format: "MMMM yyyy"
 button:
   close: "Close"
   search: "SEARCH"
+  letgo: "Let's go"
+  continue: "Continue"
 filter:
   popular_filter: "Popular filters"
   property_type: "Property type"
@@ -20,3 +28,14 @@ review_type:
   facilities: "Facilities"
   value_for_money: "Value for money"
   room_comfort_and_quantity: "Room comfort and quality"
+label:
+  from: "From"
+  to: "To"
+  passenger: "Passenger"
+  adult: "Adults"
+  children: "Childrens"
+  infant: "Infants"
+title:
+  passenger_info: "Passenger information"
+  departure_flight: "Departure flight"
+  return_flight: "Return flight"

@@ -2,6 +2,7 @@
   "browser": "chrome",
   "browserCapabilities": {
     "caps": {
+      "pageLoadStrategy": "eager"
     }
   },
   "browserSize": "1920x1080",
