@@ -1,6 +1,12 @@
+config:
+  language: "vi"
+  country: "VI"
+  datetime_format: "dd/MM/yyyy"
 button:
   close: "Đóng"
   search: "TÌM"
+  letgo: "Tìm chuyến bay"
+  continue: "Continue"
 filter:
   popular_filter: "Bộ lọc phổ biến"
   property_type: "Loại hình nơi ở"
@@ -20,3 +26,7 @@ review_type:
   facilities: "Cơ sở vật chất"
   value_for_money: "Đáng giá tiền"
   room_comfort_and_quantity: "Sự thoải mái và chất lượng phòng"
+label:
+  from: "Điểm khởi hành"
+  to: "Điểm đến"
+  passenger: "Hành khách"
