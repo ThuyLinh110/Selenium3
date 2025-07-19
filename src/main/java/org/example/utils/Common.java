@@ -1,7 +1,11 @@
 package org.example.utils;
 
 
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class Common {
@@ -20,4 +24,21 @@ public class Common {
                 .collect(Collectors.toList());
     }
 
+    public static String formatWithCommas(int number) {
+        return NumberFormat.getNumberInstance(Locale.US).format(number);
+    }
+
+    public static Locale getLocale() {
+        String country = (String) YamlUtils.getProperty("config.country");
+        String language = (String) YamlUtils.getProperty("config.language");
+        return new Locale.Builder()
+                .setLanguage(language)
+                .setRegion(country)
+                .build();
+    }
+
+    public static String formatDateToLocalizedDayMonth(LocalDate localDate) {
+        String formatter = (String) YamlUtils.getProperty("config.day_month_format");
+        return localDate.format(DateTimeFormatter.ofPattern(formatter, getLocale()));
+    }
 }
