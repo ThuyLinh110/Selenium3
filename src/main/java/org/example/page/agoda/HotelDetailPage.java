@@ -7,7 +7,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.qameta.allure.model.Status;
 import org.example.data.agoda.ReviewPointData;
-import org.example.enumData.ReviewType;
+import org.example.enumData.agoda.ReviewType;
 import org.example.utils.Constants;
 
 import java.util.List;

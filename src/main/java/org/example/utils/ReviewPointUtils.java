@@ -1,7 +1,7 @@
 package org.example.utils;
 
 import org.example.data.agoda.ReviewPointData;
-import org.example.enumData.ReviewType;
+import org.example.enumData.agoda.ReviewType;
 
 import java.util.List;
 import java.util.stream.Collectors;
