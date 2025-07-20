@@ -1,4 +1,4 @@
-package org.example.enumData;
+package org.example.enumData.agoda;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

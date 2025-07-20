@@ -2,8 +2,8 @@ package org.example.data.agoda;
 
 import lombok.Builder;
 import lombok.Data;
-import org.example.enumData.FilterOption;
-import org.example.enumData.FilterType;
+import org.example.enumData.agoda.FilterOption;
+import org.example.enumData.agoda.FilterType;
 
 import java.util.List;
 
