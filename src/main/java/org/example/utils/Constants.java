@@ -11,6 +11,8 @@ public class Constants {
 
     public static final String VIETJET_PROFILE_FILE_PATH = "src/test/resources/profile/vietjet.properties";
     public static final String AGODA_PROFILE_FILE_PATH = "src/test/resources/profile/agoda.properties";
+    public static final String LEAPFROG_URL = "https://store.leapfrog.com/en-us/apps/c?p=%d";
+    public static final String LEAPFROG_DATA_PATH = "src/test/resources/data/leapfrog-games.xlsx";
     public static final String EN_LANGUAGE_YAML_FILE_PATH = "src/test/resources/language/language_en.yaml";
     public static final String VI_LANGUAGE_YAML_FILE_PATH = "src/test/resources/language/language_vi.yaml";
     public static final Duration MEDIUM_TIMEOUT = Duration.ofSeconds(10);

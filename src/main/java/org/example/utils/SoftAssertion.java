@@ -10,7 +10,6 @@ import org.testng.collections.Maps;
 
 import java.io.ByteArrayInputStream;
 import java.util.Map;
-import java.util.Objects;
 
 public class SoftAssertion extends Assertion {
 
@@ -43,7 +42,7 @@ public class SoftAssertion extends Assertion {
             onAssertFailure(a, ex);
             m_errors.put(ex, a);
             Allure.step(DEFAULT_SOFT_ASSERT_MESSAGE + getErrorDetails(ex), Status.FAILED);
-            if (Objects.nonNull(DriverUtils.getCurrentDriver())) {
+            if (DriverUtils.isDriverAlive()) {
                 ByteArrayInputStream input = new ByteArrayInputStream(DriverUtils.getCurrentDriver().screenshot(OutputType.BYTES));
                 Allure.addAttachment("ScreenShot - " + "Failed at " + a.getMessage(), input);
             }
