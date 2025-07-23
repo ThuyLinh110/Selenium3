@@ -26,7 +26,7 @@ This is an example of using Selenide test framework.
 
 ### Use case
 
-- [ ] Content testing
+- [x] Content testing
 - [x] Multiple languages testing
 - [x] Group tests by purposes: regression, smoke/sanity test
 - [x] Source control practice: branch => create PR
@@ -38,8 +38,31 @@ This is an example of using Selenide test framework.
 
 ## Pre-requites
 
-- Install Java 21 or above
-- Install Maven
+### 1. Install Java 21 or above
+
+- Download from [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html)
+- Verify installation:
+  ```cmd
+  java -version
+
+### 2. Install Maven
+
+- Download from [Apache Maven](https://maven.apache.org/download.cgi)
+- Verify installation:
+  ```cmd
+  mvn -version
+
+### 3. Install Selenium Gird (Optional)
+
+- Download the Selenium Server (Grid) from [Download Selenium](https://www.selenium.dev/downloads/)
+- Place it in a known directory, e.g., C:\selenium\selenium-server-4.34.0.jar
+- Start the hub:
+  ```cmd
+  java -jar selenium-server-4.34.0.jar hub
+
+- In another terminal, start the node:
+  ```cmd
+  java -jar selenium-server-4.34.0.jar node --hub http://localhost:4444 --selenium-manager true
 
 ## Installation
 
@@ -52,21 +75,33 @@ mvn clean install
 
 ## Execute
 
-- You can run test suite by this command line.
+### Option 1. Run via Command Line (Maven)
 
 ```cmd
-mvn clean test -DsuiteXmlFile=\src\test\resources\suites\TestSuites.xml
+mvn clean test 
+  -DsuiteXmlFiles=./src/test/resources/suites/TestSuites.xml 
+  -Dbrowser=chrome
+  -Dtimeout=60000
+  -DpageLoadStrategy=eager
+  -Dremote=http://localhost:4444 # if running Selenium Grid
+  -Dgroups=regression
+  -Dparallel=tests
+  -Denvironment=agoda
+  -Dlanguage=en
+  -DthreadCount=2
+  -DretryCount=1
+  -DretryMode=immediately
 ```
 
-- In case you want to change the configuration of browser, you can change it in "
-  /src/main/resources/configuration/[browser].json"
+### Option 2. Manual execution via IDE
 
-- In case you want to change parameters when running script, you can change them on the TestSuite.xml file or by command
-  line
+- Right-click on TestSuites.xml or a test class → Run
 
-```cmd
-mvn clean test -DsuiteXmlFile=src/test/resources/suites/TestSuites.xml -Dbrowser=chrome -Dlanguage=en -Denvironment=agoda
-```
+- Configuration values are read from:
+
+    - /src/main/resources/configuration/{browser}.json
+
+    - TestSuites.xml (for TestNG parameters)
 
 | Parameter       | Description                                                                                                                                                   | 
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|

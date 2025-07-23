@@ -34,9 +34,11 @@ public class TestListener implements ITestListener, IExecutionListener, IAnnotat
 
     @Override
     public void onStart(ITestContext context) {
-        SharedParameter.RETRY_MODE = Objects.requireNonNullElse(context.getCurrentXmlTest().getParameter("retryMode"), "immediately");
-        String retryCount = context.getCurrentXmlTest().getParameter("retryCount");
-        SharedParameter.RETRY_COUNT = Objects.nonNull(retryCount) ? Integer.parseInt(retryCount) : 0;
+        String retryMode = System.getProperty("retryMode", context.getCurrentXmlTest().getParameter("retryMode"));
+        SharedParameter.RETRY_MODE = Objects.requireNonNullElse(retryMode, "immediately");
+        String retryCountStr = System.getProperty("retryCount", context.getCurrentXmlTest().getParameter("retryCount"));
+        SharedParameter.RETRY_COUNT = retryCountStr != null ? Integer.parseInt(retryCountStr) : 0;
+
         AllureReport.setupAllure();
     }
 
