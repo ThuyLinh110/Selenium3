@@ -41,6 +41,11 @@ public class DriverUtils {
         return driver;
     }
 
+    public static boolean isDriverAlive() {
+        long threadID = getCurrentThreadID();
+        return drivers.get(threadID) != null;
+    }
+
     public static void quitDriver() {
         long threadID = getCurrentThreadID();
         SelenideDriver driver = drivers.remove(threadID);
