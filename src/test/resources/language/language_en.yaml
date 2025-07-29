@@ -1,6 +1,7 @@
 config:
   language: "en"
   country: "US"
+  displayed_language: "English"
   datetime_format: "dd/MM/yyyy"
   day_month_format: "MMMM d"
   month_year_format: "MMMM yyyy"
@@ -18,6 +19,7 @@ checkbox:
   4_stars: "4-Star rating"
   3_stars: "3-Star rating"
   swimming_pool: "Swimming pool"
+  find_low_pare: "Find lowest fare"
 slider:
   min: "MIN"
   max: "MAX"
