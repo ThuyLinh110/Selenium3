@@ -31,10 +31,6 @@ public class TestBase {
         YamlUtils.loadYaml(yamlPath);
         Config config = ConfigLoader.loadConfig(ConfigFiles.get(browser));
 
-        if (Boolean.parseBoolean(PropertiesUtils.getProperty("grid"))) {
-            config.setRemote(PropertiesUtils.getProperty("hub"));
-        }
-
         DriverUtils.initializeDriver(config);
 
     }
