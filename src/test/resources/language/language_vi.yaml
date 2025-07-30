@@ -1,6 +1,7 @@
 config:
   language: "vi"
   country: "VI"
+  displayed_language: "Tiếng Việt"
   datetime_format: "dd/MM/yyyy"
   day_month_format: "d 'tháng' M"
   month_year_format: "'tháng' MM yyyy"
@@ -18,6 +19,7 @@ checkbox:
   4_stars: "4-Đánh giá sao"
   3_stars: "3-Đánh giá sao"
   swimming_pool: "Bể bơi"
+  find_low_pare: "Tìm vé rẻ nhất"
 slider:
   min: "TỐI THIỂU"
   max: "TỐI ĐA"

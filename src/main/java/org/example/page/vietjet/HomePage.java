@@ -3,9 +3,11 @@ package org.example.page.vietjet;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import lombok.extern.slf4j.Slf4j;
 import org.example.data.vietjet.Passenger;
 import org.example.data.vietjet.SearchTicketData;
 import org.example.enumData.vietjet.Label;
+import org.example.page.general.GeneralPage;
 import org.example.utils.Common;
 import org.example.utils.Constants;
 import org.example.utils.YamlUtils;
@@ -16,11 +18,12 @@ import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class HomePage {
+@Slf4j
+public class HomePage extends GeneralPage {
 
     @Step("Accept cookies")
     public void acceptCookies() {
-        acceptCookiesButton.click();
+        acceptCookiesButton.shouldBe(Condition.visible, Constants.MEDIUM_TIMEOUT).click();
     }
 
     @Step("Close the notification alert ")
@@ -61,8 +64,16 @@ public class HomePage {
 
     public void searchTicket(SearchTicketData searchTicketData) {
         fillTicketInfo(searchTicketData);
+        if (searchTicketData.isFindLowestFare()) {
+            selectFindLowFareOption();
+        }
         clickSearchButton();
-        waitForPriceListLoading();
+        waitForPageLoading();
+    }
+
+    @Step("Check 'Find low fare' checkbox")
+    public void selectFindLowFareOption() {
+        $$x(String.format(checkbox, YamlUtils.getProperty("checkbox.find_low_pare"))).last().click();
     }
 
     @Step("Search and select the first result: {0} {1}")
@@ -111,13 +122,6 @@ public class HomePage {
         getButtonByText((String) YamlUtils.getProperty("button.letgo")).click();
     }
 
-    public void waitForPriceListLoading() {
-        ecoImg.shouldBe(Condition.exist, Constants.MEDIUM_TIMEOUT);
-        if (closeButton.should(Condition.exist, Constants.MEDIUM_TIMEOUT).exists()) {
-            closeButton.click();
-        }
-    }
-
     private SelenideElement getTextboxByLabel(Label label) {
         return $x(String.format("//div[label[.='%s']]//input", label.toString()))
                 .shouldBe(Condition.visible);
@@ -134,8 +138,6 @@ public class HomePage {
         return $x(String.format(button, text)).shouldBe(Condition.visible);
     }
 
-    private SelenideElement ecoImg = $x("//img[contains(@src,'eco')]");
-    private SelenideElement closeButton = $("button[aria-label = 'close']");
     private SelenideElement acceptCookiesButton = $x("//button[contains(@class,'MuiButton-root')]//h5");
     private SelenideElement iframe = $("#preview-notification-frame");
     private SelenideElement notNowButton = $("#NC_CTA_TWO");
@@ -151,4 +153,5 @@ public class HomePage {
     private SelenideElement firstPlaceOptions = $x("(//div[contains(@class, 'MuiExpansionPanelDetails-root')]//div[contains(@class, 'MuiBox-root')])[1]");
     private String date = "(//div[div[@class='rdrMonthName' and .='%s']]//button[not(contains(@class,'rdrDayPassive'))]//span[.='%d'])[1]";
     private String button = "//div[contains(@class, 'MuiPaper-root')]//button[span[.=\"%s\"]]";
+    private String checkbox = "//h3[text()='%s']/preceding-sibling::span//input[@type='checkbox']";
 }

@@ -7,6 +7,7 @@ import io.qameta.allure.Step;
 import org.example.data.vietjet.Passenger;
 import org.example.data.vietjet.TicketInfoData;
 import org.example.enumData.vietjet.Label;
+import org.example.page.general.GeneralPage;
 import org.example.utils.Common;
 import org.example.utils.YamlUtils;
 
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
 import static com.codeborne.selenide.Selenide.*;
 import static org.example.utils.Constants.TIME_FORMATTER;
 
-public class SelectFlightPage {
+public class SelectFlightPage extends GeneralPage {
 
     public boolean isTheTicketPriceDisplayedIn(String currency) {
         return highlightedDate.$x(".//p[3]").getText().contains(currency);
