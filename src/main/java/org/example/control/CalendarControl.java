@@ -6,6 +6,8 @@ import com.codeborne.selenide.SelenideElement;
 
 import java.time.LocalDate;
 
+import static com.codeborne.selenide.Condition.attribute;
+
 public class CalendarControl {
     private SelenideElement previousMonthButton;
     private SelenideElement nextMonthButton;
@@ -41,7 +43,7 @@ public class CalendarControl {
     }
 
     private SelenideElement getSelectDate(LocalDate date) {
-        return calendarDate.findBy(Condition.text(date.toString()))
+        return calendarDate.findBy(attribute("data-selenium-date", date.toString()))
                 .shouldBe(Condition.visible)
                 .shouldBe(Condition.enabled);
     }
