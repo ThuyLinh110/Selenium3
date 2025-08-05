@@ -16,12 +16,12 @@ This is an example of using Selenide test framework.
 - [x] Parallel execution
 - [x] Cross browser testing
 - [x] Selenium Grid
-- [ ] Implement testcase
+- [x] Implement testcase
     - [x] Agoda - TC1
     - [x] Agoda - TC2
     - [x] Agoda - TC3
     - [x] Vietjet - TC1
-    - [ ] Vietjet - TC2
+    - [x] Vietjet - TC2
 - [x] CI - Schedule test and send the notification result email
 
 ### Use case

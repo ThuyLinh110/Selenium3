@@ -2,10 +2,11 @@
   "browser": "chrome",
   "browserCapabilities": {
     "caps": {
-      "pageLoadStrategy": "eager"
+      "pageLoadStrategy": "normal"
     }
   },
   "browserSize": "1920x1080",
+  "headless": true,
   "timeout": 60000,
   "pollingInterval": 200,
   "pageLoadTimeout": 180000

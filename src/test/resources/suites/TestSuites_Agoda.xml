@@ -22,11 +22,4 @@
             <class name="agoda.Agoda_VerifyUserCanSearchFilterAndNavigateToHotelDetailsSuccessfully"/>
         </classes>
     </test>
-
-    <!--    <test name="Agoda_1">-->
-    <!--        <parameter name="browser" value="edge"/>-->
-    <!--        <classes>-->
-    <!--            <class name="agoda.Agoda_VerifyUserCanSearchAndSortHotelSuccessfully"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
 </suite>

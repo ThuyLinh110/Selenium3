@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" name="Test" parallel="tests" thread-count="1">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="language" value="en"/>
+    <parameter name="retryMode" value="immediately"/>
+    <parameter name="retryCount" value="0"/>
+
+    <listeners>
+        <listener class-name="org.example.testng.TestListener"/>
+    </listeners>
+
+    <test name="Agoda">
+        <parameter name="environment" value="agoda"/>
+        <packages>
+            <package name="agoda"></package>
+        </packages>
+    </test>
+
+    <test name="Vietjet">
+        <parameter name="environment" value="vietjet"/>
+        <packages>
+            <package name="vietjet"></package>
+        </packages>
+    </test>
+
+    <test name="LeapFrog">
+        <packages>
+            <package name="leapFrog"></package>
+        </packages>
+    </test>
+</suite>

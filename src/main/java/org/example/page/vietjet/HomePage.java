@@ -28,9 +28,11 @@ public class HomePage extends GeneralPage {
 
     @Step("Close the notification alert ")
     public void clickNotNow() {
-        switchTo().frame(iframe);
-        notNowButton.shouldBe(Condition.visible).click();
-        switchTo().defaultContent();
+        if (iframe.exists()) {
+            switchTo().frame(iframe);
+            notNowButton.shouldBe(Condition.visible).click();
+            switchTo().defaultContent();
+        }
     }
 
     public void fillTicketInfo(SearchTicketData searchTicketData) {

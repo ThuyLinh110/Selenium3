@@ -23,11 +23,6 @@ public class TestListener implements ITestListener, IExecutionListener, IAnnotat
     }
 
     @Override
-    public void onTestSuccess(ITestResult result) {
-        attachScreenshot("Screenshot on test success");
-    }
-
-    @Override
     public void onTestFailure(ITestResult result) {
         attachScreenshot("Screenshot on test failure");
     }
