@@ -24,7 +24,7 @@ public class TestBase {
         SharedParameter.ENV = env;
         SharedParameter.LANGUAGE = Objects.requireNonNullElse(language, "en");
 
-        String propPath = SharedParameter.ENV.equals("agoda") ? Constants.AGODA_PROFILE_FILE_PATH : Constants.VIETJET_PROFILE_FILE_PATH;
+        String propPath = getPropPath(SharedParameter.ENV);
         String yamlPath = SharedParameter.LANGUAGE.equals("vi") ? Constants.VI_LANGUAGE_YAML_FILE_PATH : Constants.EN_LANGUAGE_YAML_FILE_PATH;
 
         PropertiesUtils.loadProperties(propPath);
@@ -38,5 +38,18 @@ public class TestBase {
     @AfterMethod(alwaysRun = true)
     public void afterClass() {
         DriverUtils.quitDriver();
+    }
+
+    public String getPropPath(String env) {
+        switch (env) {
+            case "vietjet":
+                return Constants.VIETJET_PROFILE_FILE_PATH;
+            case "agoda":
+                return Constants.AGODA_PROFILE_FILE_PATH;
+            case "book":
+                return Constants.BOOK_PROFILE_FILE_PATH;
+            default:
+                return "";
+        }
     }
 }

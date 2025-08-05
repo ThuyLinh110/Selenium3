@@ -11,6 +11,7 @@ public class Constants {
 
     public static final String VIETJET_PROFILE_FILE_PATH = "src/test/resources/profile/vietjet.properties";
     public static final String AGODA_PROFILE_FILE_PATH = "src/test/resources/profile/agoda.properties";
+    public static final String BOOK_PROFILE_FILE_PATH = "src/test/resources/profile/book.properties";
     public static final String LEAPFROG_URL = "https://store.leapfrog.com/en-us/apps/c?p=%d&platforms=197&product_list_dir=asc&product_list_order=name";
     public static final String LEAPFROG_DATA_PATH = "src/test/resources/data/leapfrog-games.xlsx";
     public static final String EN_LANGUAGE_YAML_FILE_PATH = "src/test/resources/language/language_en.yaml";
