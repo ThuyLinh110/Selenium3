@@ -33,7 +33,7 @@ This is an example of using Selenide test framework.
 - [x] Switch test environment: dev, stg (dev: agoda.com, stg: vj.com)
 - [x] Wrap custom controls
 - [ ] Data driven testing: test data is in excel file
-- [ ] Working with Shadow DOM
+- [x] Working with Shadow DOM
 - [ ] Compare with another FW e.g. Playwright
 
 ## Pre-requites
