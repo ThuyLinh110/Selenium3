@@ -7,6 +7,9 @@ import org.example.page.general.GeneralPage;
 import org.example.utils.Assertion;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Book_VerifyUserCanSearchBookSuccessfully extends TestBase {
 
     @Test(groups = {"smoke"}, description = "Book - Verify user can search book successfully")
@@ -14,7 +17,19 @@ public class Book_VerifyUserCanSearchBookSuccessfully extends TestBase {
         generalPage.openPage();
         homePage.searchBook(keyword);
 
-        Assertion.assertTrue(searchResultPage.areAllBookTitlesContainKeyword(keyword), "VP: Verify all book titles contain the searched keyword");
+        bookTitles = searchResultPage.getAllBookTitles();
+        Assertion.assertTrue(searchResultPage.areAllBookTitlesContainKeyword(bookTitles, keyword), "VP: Verify all book titles contain the searched keyword");
+
+        Assertion.assertAll("Complete running test case");
+    }
+
+    @Test(groups = {"smoke"}, description = "Selenium - Book - Verify user can search book successfully")
+    public void book_VerifyUserCanSearchBookSuccessfully_Selenium() {
+        generalPage.openPage();
+        homePage.searchBookBySelenium(keyword);
+
+        bookTitles = searchResultPage.getAllBookTitlesBySelenium();
+        Assertion.assertTrue(searchResultPage.areAllBookTitlesContainKeyword(bookTitles, keyword), "VP: Verify all book titles contain the searched keyword");
 
         Assertion.assertAll("Complete running test case");
     }
@@ -22,5 +37,6 @@ public class Book_VerifyUserCanSearchBookSuccessfully extends TestBase {
     GeneralPage generalPage = new GeneralPage();
     HomePage homePage = new HomePage();
     SearchResultPage searchResultPage = new SearchResultPage();
+    List<String> bookTitles = new ArrayList<>();
     String keyword = "playwright";
 }
