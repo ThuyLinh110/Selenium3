@@ -2,6 +2,7 @@ package org.example.page.book;
 
 import com.codeborne.selenide.CollectionCondition;
 import io.qameta.allure.Allure;
+import io.qameta.allure.model.Status;
 import org.example.driver.DriverUtils;
 import org.example.utils.Constants;
 import org.openqa.selenium.By;
@@ -25,7 +26,7 @@ public class SearchResultPage {
         boolean result = true;
         for (String title : titles) {
             if (!title.toLowerCase().contains(keyword.toLowerCase())) {
-                Allure.step(String.format("The book title %s does not contain keyword %s", title, keyword));
+                Allure.step(String.format("The book title %s does not contain keyword %s", title, keyword), Status.FAILED);
                 result = false;
             }
         }

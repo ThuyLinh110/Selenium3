@@ -29,4 +29,11 @@
             <package name="leapFrog"></package>
         </packages>
     </test>
+
+    <test name="BOOK">
+        <parameter name="environment" value="book"/>
+        <packages>
+            <package name="book"></package>
+        </packages>
+    </test>
 </suite>
