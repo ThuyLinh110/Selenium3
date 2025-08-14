@@ -146,7 +146,7 @@ pipeline {
                     mimeType: 'text/html',
                     attachLog: false,
                     attachmentsPattern: 'allure-report/index.html',
-                    to: 'thuylinh1102001@gmail.com'
+                    to: 'thuylinh1102001@gmail.com, thuong.dang@agest.vn'
                 )
             }
         }
